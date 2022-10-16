@@ -15,7 +15,8 @@
 
 typedef juce::Array<ImGuiInputEvent> ImGui_ImplJuce_EventQueue;
 
-struct ImGui_ImplJuce_Data {
+struct ImGui_ImplJuce_Data
+{
   double Time;
   juce::Component *Component;
   juce::OpenGLContext *Context;

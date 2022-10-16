@@ -5,8 +5,8 @@
 class MainWindow : public juce::DocumentWindow
 {
 public:
-  explicit MainWindow(const String &name)
-    : juce::DocumentWindow(name, Colours::black, allButtons)
+  explicit MainWindow(const juce::String &name)
+    : juce::DocumentWindow(name, juce::Colours::black, allButtons)
   {
     setContentOwned(new ImGuiComponent(), true);
 
@@ -16,7 +16,7 @@ public:
 
   void closeButtonPressed() override
   {
-    JUCEApplication::getInstance()->systemRequestedQuit();
+    juce::JUCEApplication::getInstance()->systemRequestedQuit();
   }
 
 private:
@@ -29,7 +29,7 @@ public:
   const juce::String getApplicationName() override { return JUCE_APPLICATION_NAME_STRING; }
   const juce::String getApplicationVersion() override { return JUCE_APPLICATION_VERSION_STRING; }
 
-  void initialise(const String &commandLine) override
+  void initialise(const juce::String &commandLine) override
   {
     juce::ignoreUnused (commandLine);
     win.reset(new MainWindow(getApplicationName()));

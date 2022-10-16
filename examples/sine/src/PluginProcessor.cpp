@@ -61,7 +61,7 @@ juce::AudioProcessorEditor *SineAudioProcessor::createEditor()
 // save and load state (on message thread, so doesn't have to be real-time safe)
 void SineAudioProcessor::getStateInformation(juce::MemoryBlock &dest)
 {
-  auto xml = std::make_unique<XmlElement>("State");
+  auto xml = std::make_unique<juce::XmlElement>("State");
 
   // audio plugin parameters
   if (auto apxml = params.copyState().createXml())
