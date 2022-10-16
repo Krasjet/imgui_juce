@@ -51,7 +51,7 @@ Cons:
     ImGui do have logarithmic slider built-in though.
 
   - You need a patched version of ImGui for use in audio
-    plugins (see Notes below).
+    plugins (see Note below).
 
 Usage
 -----
