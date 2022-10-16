@@ -14,17 +14,20 @@ Pros:
 
     You can write declarative code for GUI now:
 
-      ImGui::Text("Hello, world %d", 123);
-      if (ImGui::Button("Save"))
-        DoStuff();
+        ImGui::Text("Hello, world %d", 123);
+        if (ImGui::Button("Save"))
+          DoStuff();
 
   + No more GUI layout positioning bullshit. Spend your time
     on DSP code.
+
   + It's much easier now to integrate custom non-float
     parameters into your plugin.
+
   + There are a ton of useful extensions for ImGui you can
     use for easier debugging. See imnodes [3], implot [4],
     and the list on ImGui wiki [5].
+
   + You can mix JUCE GUI components and ImGui. ImGui only
     needs a Component for mouse/keyboard input and a
     OpenGLContext for rendering. You can, for example, only
@@ -34,16 +37,19 @@ Pros:
 Cons:
   - GUI is recomputed each frame at 60 FPS, probably less
     efficient than JUCE, but at least it's using OpenGL.
+
   - JUCE's keypress callbacks are extremely inefficient for
     ImGui, though you can disable it by setting
 
-      setWantsKeyboardFocus(false);
+        setWantsKeyboardFocus(false);
 
   - Component and layout can be less customizable than JUCE.
     You probably only want to use it for prototyping.
+
   - Slider skew not supported by default. You need to write
     your own component for that (contributions welcome).
     ImGui do have logarithmic slider built-in though.
+
   - You need a patched version of ImGui for use in audio
     plugins (see Notes below).
 
@@ -52,28 +58,28 @@ Usage
 
 The backend exposes three functions
 
-  #include <imgui_impl_juce/imgui_impl_juce.h>
+    #include <imgui_impl_juce/imgui_impl_juce.h>
 
-  void ImGui_ImplJuce_Init(juce::Component&, juce::OpenGLContext&);
-  void ImGui_ImplJuce_Shutdown();
-  void ImGui_ImplJuce_NewFrame();
+    void ImGui_ImplJuce_Init(juce::Component&, juce::OpenGLContext&);
+    void ImGui_ImplJuce_Shutdown();
+    void ImGui_ImplJuce_NewFrame();
 
 You need to create a juce::OpenGLRenderer and call the three
 functions in
 
-  void newOpenGLContextCreated();
-  void openGLContextClosing();
-  void renderOpenGL();
+    void newOpenGLContextCreated();
+    void openGLContextClosing();
+    void renderOpenGL();
 
 respectively. See
 
-  ./examples/mwe/src/ImGuiComponent.h
+    ./examples/mwe/src/ImGuiComponent.h
 
 for a complete minimal working example.
 
 If you need an audio plugin example, see
 
-  ./examples/sine/
+    ./examples/sine/
 
 CMake Usage
 -----------
@@ -82,14 +88,14 @@ If you are using CMake, call `add_subdirectory` on the
 current directory after JUCE directory is added. Then link
 your application target to `imgui_imple_juce`. For example,
 
-  target_link_libraries(app
-    # other stuff libs
-    PRIVATE
-      imgui_impl_juce)
+    target_link_libraries(app
+      # other stuff libs
+      PRIVATE
+        imgui_impl_juce)
 
 See
 
-  ./examples/mwe/CMakeLists.txt
+    ./examples/mwe/CMakeLists.txt
 
 for a complete example.
 
@@ -99,7 +105,7 @@ Note
 By default ImGui only support a single instance running
 because it uses a global state
 
-  ImGuiContext* GImGui = NULL;
+    ImGuiContext* GImGui = NULL;
 
 This is probably fine if you are writing a GUI application,
 but if you are writing an audio plugin, the plugin will
@@ -108,12 +114,12 @@ open two GUIs at the same time.
 
 You need to patch ImGui and make the global state thread local
 
-  thread_local ImGuiContext* GImGui = NULL;
+    thread_local ImGuiContext* GImGui = NULL;
 
 in order to support multiple instances of ImGui running at
 the same time on different threads. See
 
-  ./examples/sine/patches/imgui/multi_instance.patch
+    ./examples/sine/patches/imgui/multi_instance.patch
 
 for details.
 
@@ -134,7 +140,7 @@ Donate
 If this library saves valuable development time for you,
 consider donate to support this project:
 
-  https://ko-fi.com/krjst
+    https://ko-fi.com/krjst
 
 --------------------------
 

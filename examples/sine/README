@@ -17,22 +17,24 @@ using FetchContent.
 Build
 -----
 
-  $ cmake -B build
-  $ cd build
-  $ make
+Run
+
+    $ cmake -B build
+    $ cd build
+    $ make
 
 Alternatively, use Ninja (or your own build system)
 
-  $ cmake -B build -G Ninja
-  $ cd build
-  $ ninja
+    $ cmake -B build -G Ninja
+    $ cd build
+    $ ninja
 
 which is probably faster than default make.
 
 On Linux, the standalone program is located at
 
-  ./build/sine_artefacts/Standalone/Sine
+    ./build/sine_artefacts/Standalone/Sine
 
 and the VST3 plugin is located at
 
-  ./build/sine_artefacts/VST3/Sine.vst3
+    ./build/sine_artefacts/VST3/Sine.vst3
