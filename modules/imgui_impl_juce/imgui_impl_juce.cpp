@@ -128,18 +128,9 @@ static void updateKeyModifiers(ImGui_ImplJuce_Data *bd, const juce::ModifierKeys
 {
   if (!mods)
     mods = &juce::ModifierKeys::currentModifiers;
-  if (mods->isCtrlDown())
-    queueKeyEvent(bd, ImGuiKey_ModCtrl, true);
-  else
-    queueKeyEvent(bd, ImGuiKey_ModCtrl, false);
-  if (mods->isShiftDown())
-    queueKeyEvent(bd, ImGuiKey_ModShift, true);
-  else
-    queueKeyEvent(bd, ImGuiKey_ModShift, false);
-  if (mods->isAltDown())
-    queueKeyEvent(bd, ImGuiKey_ModAlt, true);
-  else
-    queueKeyEvent(bd, ImGuiKey_ModAlt, false);
+  queueKeyEvent(bd, ImGuiKey_ModCtrl, mods->isCtrlDown());
+  queueKeyEvent(bd, ImGuiKey_ModShift, mods->isShiftDown());
+  queueKeyEvent(bd, ImGuiKey_ModAlt, mods->isAltDown());
 }
 
 struct ImGui_ImplJuce_MouseListener : public juce::MouseListener
