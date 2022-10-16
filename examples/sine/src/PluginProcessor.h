@@ -22,8 +22,8 @@ public:
 
   const juce::String getName() const override { return JucePlugin_Name; }
 
-  // no midi
-  bool acceptsMidi() const override { return false; }
+  // vst3 synth needs midi input even if we don't use it
+  bool acceptsMidi() const override { return true; }
   bool producesMidi() const override { return false; }
 
   // no trailing output
@@ -31,7 +31,7 @@ public:
 
   // no programs
   int getNumPrograms() override { return 1; }
-  int getCurrentProgram() override { return false; }
+  int getCurrentProgram() override { return 0; }
   void setCurrentProgram(int) override {}
   const juce::String getProgramName(int) override { return {}; }
   void changeProgramName(int, const juce::String &) override {}

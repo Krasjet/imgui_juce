@@ -51,7 +51,10 @@ juce_add_plugin(sine
   PLUGIN_MANUFACTURER_CODE Krjt
   PLUGIN_CODE Ksin
   PRODUCT_NAME "Sine"
-  IS_SYNTH TRUE)
+  IS_SYNTH TRUE
+  # we don't use midi but ableton won't load vst3 synth
+  # without midi input
+  NEEDS_MIDI_INPUT TRUE)
 
 juce_generate_juce_header(sine)
 add_subdirectory(src)

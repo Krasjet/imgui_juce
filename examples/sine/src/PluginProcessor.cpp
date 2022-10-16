@@ -5,7 +5,7 @@
 
 SineAudioProcessor::SineAudioProcessor()
   : AudioProcessor(BusesProperties()
-                   .withOutput("Output", juce::AudioChannelSet::stereo(), true))
+                   .withOutput("Output", juce::AudioChannelSet::stereo()))
   , params{*this, nullptr, "Parameters", createParameterLayout()}
 {
   freqParam = dynamic_cast<juce::AudioParameterFloat*>(params.getParameter("freq"));
