@@ -23,6 +23,13 @@ FetchContent_Declare(imgui
   PATCH_COMMAND git restore . && git apply --ignore-space-change --ignore-whitespace ${CMAKE_CURRENT_SOURCE_DIR}/patches/imgui/multi_instance.patch)
 FetchContent_MakeAvailable(imgui)
 
+# replace with following for local testing
+# add_subdirectory(../../modules imgui_juce)
+FetchContent_Declare(imgui_juce
+  GIT_REPOSITORY https://github.com/Krasjet/imgui_juce
+  GIT_SHALLOW    TRUE)
+FetchContent_MakeAvailable(imgui_juce)
+
 add_library(imgui STATIC
   ${imgui_SOURCE_DIR}/imgui.cpp
   ${imgui_SOURCE_DIR}/imgui_demo.cpp
@@ -36,8 +43,6 @@ target_include_directories(imgui
     ${imgui_SOURCE_DIR}/backends)
 set_target_properties(imgui
   PROPERTIES POSITION_INDEPENDENT_CODE ON)
-
-add_subdirectory(../../modules imgui_juce)
 
 juce_add_plugin(sine
   FORMATS VST3 Standalone
