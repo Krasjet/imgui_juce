@@ -20,6 +20,13 @@ FetchContent_Declare(imgui
   GIT_TAG        edf522b58a8f74dee3225a0d5bc71565b1b8f6e0)
 FetchContent_MakeAvailable(imgui)
 
+# replace with following for local testing
+# add_subdirectory(../../modules imgui_juce)
+FetchContent_Declare(imgui_juce
+  GIT_REPOSITORY https://github.com/Krasjet/imgui_juce
+  GIT_SHALLOW    TRUE)
+FetchContent_MakeAvailable(imgui_juce)
+
 add_library(imgui STATIC
   ${imgui_SOURCE_DIR}/imgui.cpp
   ${imgui_SOURCE_DIR}/imgui_demo.cpp
@@ -31,8 +38,6 @@ target_include_directories(imgui
   PUBLIC
     ${imgui_SOURCE_DIR}
     ${imgui_SOURCE_DIR}/backends)
-
-add_subdirectory(../../modules imgui_juce)
 
 juce_add_gui_app(mwe
   COMPANY_NAME kst
