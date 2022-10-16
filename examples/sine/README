@@ -1,0 +1,38 @@
+sine
+====
+
+A barebone sine oscillator using ImGui for GUI.
+
+No parameter smoothing is applied, so don't use this plugin
+in production, but it should demonstrate how to use the
+library.
+
+Dependencies
+------------
+
+Make sure git and CMake are installed on your system. JUCE
+and ImGui will be fetched and patched automatically by CMake
+using FetchContent.
+
+Build
+-----
+
+  $ cmake -B build
+  $ cd build
+  $ make
+
+Alternatively, use Ninja (or your own build system)
+
+  $ cmake -B build -G Ninja
+  $ cd build
+  $ ninja
+
+which is probably faster than default make.
+
+On Linux, the standalone program is located at
+
+  ./build/sine_artefacts/Standalone/Sine
+
+and the VST3 plugin is located at
+
+  ./build/sine_artefacts/VST3/Sine.vst3

@@ -1,0 +1,12 @@
+examples
+========
+
+gui apps
+
+  mwe:
+    minimal working example for gui application
+
+audio plugins
+
+  sine:
+    a barebone sine oscillator plugin using ImGui for GUI

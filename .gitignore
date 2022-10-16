@@ -1,0 +1,13 @@
+*
+!*/
+
+!.gitignore
+!README
+!LICENSE
+!*.cpp
+!*.h
+!*.hpp
+!*.patch
+!CMakeLists.txt
+
+build

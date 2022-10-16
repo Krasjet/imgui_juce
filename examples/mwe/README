@@ -1,0 +1,30 @@
+mwe
+====
+
+Minimal working example for GUI application.
+
+Dependencies
+------------
+
+Make sure git and CMake are installed on your system. JUCE
+and ImGui will be fetched automatically by CMake using
+FetchContent.
+
+Build
+-----
+
+  $ cmake -B build
+  $ cd build
+  $ make
+
+Alternatively, use Ninja (or your own build system)
+
+  $ cmake -B build -G Ninja
+  $ cd build
+  $ ninja
+
+which is probably faster than default make.
+
+On Linux, the compiled application is located at
+
+  ./build/mwe_artefacts/mwe

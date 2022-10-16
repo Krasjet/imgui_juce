@@ -1,0 +1,39 @@
+From d97fc049459971dbd7c4bd7b59f83198961a5b52 Mon Sep 17 00:00:00 2001
+From: kst
+Date: Sun, 16 Oct 2022 00:00:00 +0000
+Subject: [PATCH] enable multi-instance support
+
+---
+ imgui.cpp        | 2 +-
+ imgui_internal.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/imgui.cpp b/imgui.cpp
+index fa91146c..6db1997e 100644
+--- a/imgui.cpp
++++ b/imgui.cpp
+@@ -1076,7 +1076,7 @@ static void             UpdateViewportPlatformMonitor(ImGuiViewportP* viewport);
+ //   - If you need a finite number of contexts, you may compile and use multiple instances of the ImGui code from a different namespace.
+ // - DLL users: read comments above.
+ #ifndef GImGui
+-ImGuiContext*   GImGui = NULL;
++thread_local ImGuiContext*   GImGui = NULL;
+ #endif
+
+ // Memory Allocator functions. Use SetAllocatorFunctions() to change them.
+diff --git a/imgui_internal.h b/imgui_internal.h
+index ea262a76..c0a5f592 100644
+--- a/imgui_internal.h
++++ b/imgui_internal.h
+@@ -174,7 +174,7 @@ typedef void (*ImGuiErrorLogCallback)(void* user_data, const char* fmt, ...);
+ //-----------------------------------------------------------------------------
+
+ #ifndef GImGui
+-extern IMGUI_API ImGuiContext* GImGui;  // Current implicit context pointer
++extern IMGUI_API thread_local ImGuiContext* GImGui;  // Current implicit context pointer
+ #endif
+
+ //-------------------------------------------------------------------------
+--
+2.38.0
+

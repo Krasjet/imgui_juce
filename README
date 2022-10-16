@@ -1,0 +1,145 @@
+imgui_juce
+==========
+
+JUCE [1] backend for Dear ImGui [2].
+
+I don't recommend using JUCE for prototyping DSP code, but
+if you have no better options, using ImGui with this library
+should make your life a lot easier.
+
+Pros:
+  + No more listener/attachment/callback bullshit (you won't
+    believe how many layers of callbacks are used just to
+    set a single parameter using APVTS's SliderAttachment).
+
+    You can write declarative code for GUI now:
+
+      ImGui::Text("Hello, world %d", 123);
+      if (ImGui::Button("Save"))
+        DoStuff();
+
+  + No more GUI layout positioning bullshit. Spend your time
+    on DSP code.
+  + It's much easier now to integrate custom non-float
+    parameters into your plugin.
+  + There are a ton of useful extensions for ImGui you can
+    use for easier debugging. See imnodes [3], implot [4],
+    and the list on ImGui wiki [5].
+  + You can mix JUCE GUI components and ImGui. ImGui only
+    needs a Component for mouse/keyboard input and a
+    OpenGLContext for rendering. You can, for example, only
+    enable the ImGui component for debugging and disable it
+    in the final release.
+
+Cons:
+  - GUI is recomputed each frame at 60 FPS, probably less
+    efficient than JUCE, but at least it's using OpenGL.
+  - JUCE's keypress callbacks are extremely inefficient for
+    ImGui, though you can disable it by setting
+
+      setWantsKeyboardFocus(false);
+
+  - Component and layout can be less customizable than JUCE.
+    You probably only want to use it for prototyping.
+  - Slider skew not supported by default. You need to write
+    your own component for that (contributions welcome).
+    ImGui do have logarithmic slider built-in though.
+  - You need a patched version of ImGui for use in audio
+    plugins (see Notes below).
+
+Usage
+-----
+
+The backend exposes three functions
+
+  #include <imgui_impl_juce/imgui_impl_juce.h>
+
+  void ImGui_ImplJuce_Init(juce::Component&, juce::OpenGLContext&);
+  void ImGui_ImplJuce_Shutdown();
+  void ImGui_ImplJuce_NewFrame();
+
+You need to create a juce::OpenGLRenderer and call the three
+functions in
+
+  void newOpenGLContextCreated();
+  void openGLContextClosing();
+  void renderOpenGL();
+
+respectively. See
+
+  ./examples/mwe/src/ImGuiComponent.h
+
+for a complete minimal working example.
+
+If you need an audio plugin example, see
+
+  ./examples/sine/
+
+CMake Usage
+-----------
+
+If you are using CMake, call `add_subdirectory` on the
+current directory after JUCE directory is added. Then link
+your application target to `imgui_imple_juce`. For example,
+
+  target_link_libraries(app
+    # other stuff libs
+    PRIVATE
+      imgui_impl_juce)
+
+See
+
+  ./examples/mwe/CMakeLists.txt
+
+for a complete example.
+
+Note
+----
+
+By default ImGui only support a single instance running
+because it uses a global state
+
+  ImGuiContext* GImGui = NULL;
+
+This is probably fine if you are writing a GUI application,
+but if you are writing an audio plugin, the plugin will
+crash if you add multiple instances of the plugin in DAW and
+open two GUIs at the same time.
+
+You need to patch ImGui and make the global state thread local
+
+  thread_local ImGuiContext* GImGui = NULL;
+
+in order to support multiple instances of ImGui running at
+the same time on different threads. See
+
+  ./examples/sine/patches/imgui/multi_instance.patch
+
+for details.
+
+You need a similar patch if you want to use imnodes or
+implot in your plugin.
+
+License
+-------
+
+The imgui_juce library is licensed under the GNU Lesser
+General Public License v3.0 (LGPLv3).
+
+Examples are placed under public domain.
+
+Donate
+------
+
+If this library saves valuable development time for you,
+consider donate to support this project:
+
+  https://ko-fi.com/krjst
+
+--------------------------
+
+[1]: https://github.com/juce-framework/JUCE
+[2]: https://github.com/ocornut/imgui
+[3]: https://github.com/Nelarius/imnodes
+[4]: https://github.com/epezent/implot
+[5]: https://github.com/ocornut/imgui/wiki/Useful-Extensions
