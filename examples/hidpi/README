@@ -1,7 +1,12 @@
-mwe
-===
+hidpi
+=====
 
-Minimal working example for GUI application.
+Minimal working example for GUI application with HiDPI
+support.
+
+Notice that a custom font is used here because the default
+pixel font of ImGui only looks good on integer multiples of
+the base 13px font size.
 
 Dependencies
 ------------
@@ -29,4 +34,4 @@ which is probably faster than default make.
 
 On Linux, the compiled application is located at
 
-    ./build/mwe_artefacts/mwe
+    ./build/hidpi_artefacts/hidpi

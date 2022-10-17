@@ -5,6 +5,9 @@ gui apps
 
   mwe:
     minimal working example for gui application
+  hidpi:
+    minimal working example for gui application with hidpi
+    support
 
 audio plugins
 
