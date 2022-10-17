@@ -35,3 +35,8 @@ which is probably faster than default make.
 On Linux, the compiled application is located at
 
     ./build/hidpi_artefacts/hidpi
+
+Further reading
+---------------
+
+https://github.com/ocornut/imgui/blob/master/docs/FAQ.md#q-how-should-i-handle-dpi-in-my-application
