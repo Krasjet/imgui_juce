@@ -63,7 +63,6 @@ void SineAudioProcessorEditor::newOpenGLContextCreated()
   ImGuiIO &io = ImGui::GetIO();
   io.IniFilename = nullptr; // we will store gui layout manually
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-  ImGui::StyleColorsDark();
 
   loadLayout();
 
