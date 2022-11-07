@@ -26,6 +26,7 @@ SineAudioProcessorEditor::SineAudioProcessorEditor(SineAudioProcessor &p)
 {
   setOpaque(true);
   setWantsKeyboardFocus(true);
+  setResizable(true, false);
 
   // set up opengl context
   glctx.setOpenGLVersionRequired(juce::OpenGLContext::openGL3_2);
