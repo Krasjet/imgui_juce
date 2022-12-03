@@ -25,6 +25,7 @@ public:
 private:
   SineAudioProcessor &ap;
   juce::OpenGLContext glctx;
+  ImGuiContext *imgui_ctx;
 
   void saveLayout();
   void loadLayout();

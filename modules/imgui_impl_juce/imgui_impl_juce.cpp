@@ -400,6 +400,8 @@ void ImGui_ImplJuce_Shutdown()
   {
     // we can't manipulate component on message thread directly on
     // opengl thread. obtain lock for message thread first.
+    // NOTE: the lock is no longer necessary after JUCE 7.0.3,
+    //       but we will keep it for compatibility
     const juce::MessageManagerLock mml(juce::ThreadPoolJob::getCurrentThreadPoolJob());
     //                                 ^ this part needed to prevent deadlock on exit
     if (mml.lockWasGained()) {

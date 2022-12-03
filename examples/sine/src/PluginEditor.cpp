@@ -60,7 +60,21 @@ void SineAudioProcessorEditor::loadLayout()
 void SineAudioProcessorEditor::newOpenGLContextCreated()
 {
   IMGUI_CHECKVERSION();
-  ImGui::CreateContext();
+  // NOTE:
+  // since JUCE 7.0.3, multiple opengl contexts (even from
+  // different plugin instances) will share the same opengl
+  // thread, we need to store the context and explicitly
+  // switch back before rendering
+  //   newOpenGLContextCreated - opengl thread (shared)
+  //   renderOpenGL            - opengl thread (shared)
+  //   openGLContextClosing    - main thread
+  // JUCE 7.0.2 and before: dedicated thread per opengl
+  // context. storing context is optional with thread_local.
+  //   newOpenGLContextCreated - opengl thread
+  //   renderOpenGL            - opengl thread
+  //   openGLContextClosing    - opengl thread
+  imgui_ctx = ImGui::CreateContext();
+  ImGui::SetCurrentContext(imgui_ctx);
 
   ImGuiIO &io = ImGui::GetIO();
   io.IniFilename = nullptr; // we will store gui layout manually
@@ -75,6 +89,8 @@ void SineAudioProcessorEditor::newOpenGLContextCreated()
 void SineAudioProcessorEditor::renderOpenGL()
 {
   using namespace juce::gl;
+
+  ImGui::SetCurrentContext(imgui_ctx);
 
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplJuce_NewFrame();
@@ -97,6 +113,8 @@ void SineAudioProcessorEditor::renderOpenGL()
 
 void SineAudioProcessorEditor::openGLContextClosing()
 {
+  ImGui::SetCurrentContext(imgui_ctx);
+
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplJuce_Shutdown();
   saveLayout();
