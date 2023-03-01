@@ -13,3 +13,5 @@ audio plugins
 
   sine:
     a barebone sine oscillator plugin using ImGui for GUI
+  scope:
+    a simple oscilloscope using ImPlot

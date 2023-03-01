@@ -1,7 +1,7 @@
 sine
 ====
 
-A barebone sine oscillator using ImGui for GUI.
+A barebone sine oscillator VST3 plugin using ImGui for GUI.
 
 No parameter smoothing is applied, so don't use this plugin
 in production, but it should demonstrate how to use the

@@ -1,0 +1,36 @@
+scope
+=====
+
+A simple oscilloscope VST3 plugin using ImPlot.
+
+Dependencies
+------------
+
+Make sure git and CMake are installed on your system. JUCE,
+ImGui, and ImPlot will be fetched and patched automatically
+by CMake using FetchContent.
+
+Build
+-----
+
+Run
+
+    $ cmake -B build
+    $ cd build
+    $ make
+
+Alternatively, use Ninja (or your own build system)
+
+    $ cmake -B build -G Ninja
+    $ cd build
+    $ ninja
+
+which is probably faster than default make.
+
+On Linux, the standalone program is located at
+
+    ./build/scope_artefacts/Standalone/Scope
+
+and the VST3 plugin is located at
+
+    ./build/scope_artefacts/VST3/Scope.vst3
