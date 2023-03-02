@@ -10,8 +10,8 @@ Make sure git and CMake are installed on your system. JUCE,
 ImGui, and ImPlot will be fetched and patched automatically
 by CMake using FetchContent.
 
-Build
------
+Build (Linux/macOS)
+-------------------
 
 Run
 
@@ -27,10 +27,31 @@ Alternatively, use Ninja (or your own build system)
 
 which is probably faster than default make.
 
-On Linux, the standalone program is located at
+The standalone program is located at
 
     ./build/scope_artefacts/Standalone/Scope
 
 and the VST3 plugin is located at
 
     ./build/scope_artefacts/VST3/Scope.vst3
+
+Build (Windows, MSVC)
+---------------------
+
+Open x64 Native Tools Command Prompt (or x64_86 etc.)
+included with Visual Studio
+
+    $ cmake -B build
+    $ cd build
+    $ msbuild app.sln
+
+You might want to use the `/property:Configuration=RelWithDebInfo`
+flag with msbuild to change the build type.
+
+The standalone program is located at
+
+    .\build\scope_artefacts\Debug\Standalone\Scope.exe
+
+and the VST3 plugin is located at
+
+    .\build\scope_artefacts\Debug\VST3\Scope.vst3

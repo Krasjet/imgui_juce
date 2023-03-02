@@ -10,8 +10,8 @@ Make sure git and CMake are installed on your system. JUCE
 and ImGui will be fetched automatically by CMake using
 FetchContent.
 
-Build
------
+Build (Linux/macOS)
+-------------------
 
 Run
 
@@ -27,6 +27,25 @@ Alternatively, use Ninja (or your own build system)
 
 which is probably faster than default make.
 
-On Linux, the compiled application is located at
+The compiled application is located at
 
     ./build/mwe_artefacts/mwe
+
+Build (Windows, MSVC)
+---------------------
+
+Open x64 Native Tools Command Prompt (or x64_86 etc.)
+included with Visual Studio
+
+    $ cmake -B build
+    $ cd build
+    $ msbuild app.sln
+
+You might want to use the `/property:Configuration=RelWithDebInfo`
+flag with msbuild to change the build type.
+
+The compiled application is located at
+
+    .\build\mwe_artefacts\Debug\Standalone\mwe.exe
+
+or similar locations if a different build type is used.
