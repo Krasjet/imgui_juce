@@ -2,6 +2,7 @@
 !*/
 
 !.gitignore
+!.gitattributes
 !README
 !LICENSE
 !*.cpp
