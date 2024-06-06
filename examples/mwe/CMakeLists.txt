@@ -12,7 +12,7 @@ include(FetchContent)
 set(FETCHCONTENT_QUIET OFF)
 FetchContent_Declare(juce
   GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
-  GIT_TAG        7.0.2
+  GIT_TAG        7.0.12
   GIT_SHALLOW    TRUE)
 FetchContent_MakeAvailable(juce)
 
