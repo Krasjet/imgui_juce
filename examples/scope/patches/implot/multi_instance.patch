@@ -1,6 +1,6 @@
-From e7060995114bc1bc287eaf8284686f6954e7302e Mon Sep 17 00:00:00 2001
+From 2b9a649e6d0648c087dc1f3f07f58c466cd959fb Mon Sep 17 00:00:00 2001
 From: kst
-Date: Fri, 4 Nov 2022 00:00:00 +0000
+Date: Wed, 26 Mar 2025 00:00:00 +0000
 Subject: [PATCH] enable multi-instance support
 
 ---
@@ -9,31 +9,30 @@ Subject: [PATCH] enable multi-instance support
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/implot.cpp b/implot.cpp
-index 8713a75..c4fc69e 100644
+index effc52f..0cf602c 100644
 --- a/implot.cpp
 +++ b/implot.cpp
-@@ -146,7 +146,7 @@ You can read releases logs https://github.com/epezent/implot/releases for more d
-
+@@ -158,7 +158,7 @@ You can read releases logs https://github.com/epezent/implot/releases for more d
+ 
  // Global plot context
  #ifndef GImPlot
--ImPlotContext* GImPlot = NULL;
-+thread_local ImPlotContext* GImPlot = NULL;
+-ImPlotContext* GImPlot = nullptr;
++thread_local ImPlotContext* GImPlot = nullptr;
  #endif
-
+ 
  //-----------------------------------------------------------------------------
 diff --git a/implot_internal.h b/implot_internal.h
-index b2685ff..cbf9948 100644
+index bdebbd8..b55037b 100644
 --- a/implot_internal.h
 +++ b/implot_internal.h
-@@ -95,7 +95,7 @@ struct ImPlotTicker;
+@@ -91,7 +91,7 @@ struct ImPlotTicker;
  //-----------------------------------------------------------------------------
-
+ 
  #ifndef GImPlot
 -extern IMPLOT_API ImPlotContext* GImPlot; // Current implicit context pointer
-+extern IMPLOT_API thread_local ImPlotContext* GImPlot; // Current implicit context pointer
++extern thread_local IMPLOT_API ImPlotContext* GImPlot; // Current implicit context pointer
  #endif
-
+ 
  //-----------------------------------------------------------------------------
---
-2.38.1
+-- 
 

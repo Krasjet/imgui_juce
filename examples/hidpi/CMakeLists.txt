@@ -12,19 +12,23 @@ include(FetchContent)
 set(FETCHCONTENT_QUIET OFF)
 FetchContent_Declare(juce
   GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
-  GIT_TAG        7.0.12
+  GIT_TAG        8.0.6
+  GIT_PROGRESS   TRUE
   GIT_SHALLOW    TRUE)
 FetchContent_MakeAvailable(juce)
 
 FetchContent_Declare(imgui
   GIT_REPOSITORY https://github.com/ocornut/imgui.git
-  GIT_TAG        edf522b58a8f74dee3225a0d5bc71565b1b8f6e0)
+  GIT_PROGRESS   TRUE
+  GIT_SHALLOW    TRUE
+  GIT_TAG        v1.91.9b-docking)
 FetchContent_MakeAvailable(imgui)
 
 # replace with following for local testing
 # add_subdirectory(../../modules imgui_juce)
 FetchContent_Declare(imgui_juce
   GIT_REPOSITORY https://github.com/Krasjet/imgui_juce
+  GIT_PROGRESS   TRUE
   GIT_SHALLOW    TRUE)
 FetchContent_MakeAvailable(imgui_juce)
 
@@ -51,7 +55,6 @@ target_compile_definitions(hidpi
   PUBLIC
     JUCE_WEB_BROWSER=0
     JUCE_USE_CURL=0
-    JUCE_DISPLAY_SPLASH_SCREEN=0
     JUCE_REPORT_APP_USAGE=0
     JUCE_APPLICATION_NAME_STRING="$<TARGET_PROPERTY:hidpi,JUCE_PRODUCT_NAME>"
     JUCE_APPLICATION_VERSION_STRING="$<TARGET_PROPERTY:hidpi,JUCE_VERSION>")

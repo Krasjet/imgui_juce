@@ -129,9 +129,9 @@ static void updateKeyModifiers(ImGui_ImplJuce_Data *bd, const juce::ModifierKeys
 {
   if (!mods)
     mods = &juce::ModifierKeys::currentModifiers;
-  queueKeyEvent(bd, ImGuiKey_ModCtrl, mods->isCtrlDown());
-  queueKeyEvent(bd, ImGuiKey_ModShift, mods->isShiftDown());
-  queueKeyEvent(bd, ImGuiKey_ModAlt, mods->isAltDown());
+  queueKeyEvent(bd, ImGuiMod_Ctrl, mods->isCtrlDown());
+  queueKeyEvent(bd, ImGuiMod_Shift, mods->isShiftDown());
+  queueKeyEvent(bd, ImGuiMod_Alt, mods->isAltDown());
 }
 
 struct ImGui_ImplJuce_MouseListener : public juce::MouseListener
@@ -336,12 +336,12 @@ struct ImGui_ImplJuce_KeyListener : public juce::KeyListener
   }
 };
 
-static const char* ImGui_ImplJuce_GetClipboardText(void *)
+static const char* ImGui_ImplJuce_GetClipboardText(ImGuiContext *)
 {
   return juce::SystemClipboard::getTextFromClipboard().toRawUTF8();
 }
 
-static void ImGui_ImplJuce_SetClipboardText(void *, const char *text)
+static void ImGui_ImplJuce_SetClipboardText(ImGuiContext *, const char *text)
 {
   juce::SystemClipboard::copyTextToClipboard(juce::String(text));
 }
@@ -361,8 +361,9 @@ void ImGui_ImplJuce_Init(juce::Component &component, juce::OpenGLContext &contex
   bd->Component = &component;
   bd->Context = &context;
 
-  io.SetClipboardTextFn = ImGui_ImplJuce_SetClipboardText;
-  io.GetClipboardTextFn = ImGui_ImplJuce_GetClipboardText;
+  ImGuiPlatformIO &platform_io = ImGui::GetPlatformIO();
+  platform_io.Platform_SetClipboardTextFn = ImGui_ImplJuce_SetClipboardText;
+  platform_io.Platform_GetClipboardTextFn = ImGui_ImplJuce_GetClipboardText;
 
   // Create mouse cursors
   bd->MouseCursors[ImGuiMouseCursor_Arrow] = juce::MouseCursor(juce::MouseCursor::StandardCursorType::NormalCursor);

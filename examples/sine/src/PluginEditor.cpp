@@ -123,7 +123,7 @@ void SineAudioProcessorEditor::openGLContextClosing()
 
 void SineAudioProcessorEditor::drawImGui()
 {
-  ImGuiID dock = ImGui::DockSpaceOverViewport(nullptr, ImGuiDockNodeFlags_PassthruCentralNode);
+  ImGuiID dock = ImGui::DockSpaceOverViewport(0, nullptr, ImGuiDockNodeFlags_PassthruCentralNode);
 
   ImGuiSliderFlags sflags = ImGuiSliderFlags_AlwaysClamp | ImGuiSliderFlags_NoRoundToFormat;
 

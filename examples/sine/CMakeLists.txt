@@ -12,15 +12,16 @@ include(FetchContent)
 set(FETCHCONTENT_QUIET OFF)
 FetchContent_Declare(juce
   GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
-  GIT_TAG        7.0.12
+  GIT_TAG        8.0.6
+  GIT_PROGRESS   TRUE
   GIT_SHALLOW    TRUE)
 FetchContent_MakeAvailable(juce)
 
 FetchContent_Declare(imgui
   GIT_REPOSITORY https://github.com/ocornut/imgui.git
-  GIT_TAG        edf522b58a8f74dee3225a0d5bc71565b1b8f6e0
-  # until this is fixed https://gitlab.kitware.com/cmake/cmake/-/issues/23379
-  # GIT_SHALLOW    TRUE
+  GIT_PROGRESS   TRUE
+  GIT_SHALLOW    TRUE
+  GIT_TAG        v1.91.9b-docking
   PATCH_COMMAND git restore . && git apply --ignore-space-change --ignore-whitespace ${CMAKE_CURRENT_SOURCE_DIR}/patches/imgui/multi_instance.patch)
 FetchContent_MakeAvailable(imgui)
 
@@ -63,7 +64,6 @@ target_compile_definitions(sine
   PUBLIC
     JUCE_WEB_BROWSER=0
     JUCE_USE_CURL=0
-    JUCE_DISPLAY_SPLASH_SCREEN=0
     JUCE_REPORT_APP_USAGE=0
     JUCE_VST3_CAN_REPLACE_VST2=0)
 

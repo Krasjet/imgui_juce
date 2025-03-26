@@ -101,12 +101,12 @@ void ScopeAudioProcessorEditor::openGLContextClosing()
 
 void ScopeAudioProcessorEditor::drawImGui()
 {
-  ImGuiID dock = ImGui::DockSpaceOverViewport(nullptr, ImGuiDockNodeFlags_PassthruCentralNode);
+  ImGuiID dock = ImGui::DockSpaceOverViewport(0, nullptr, ImGuiDockNodeFlags_PassthruCentralNode);
 
   ImGui::SetNextWindowDockID(dock, ImGuiCond_FirstUseEver);
   ImGui::Begin("scope", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
   {
-    if (ImPlot::BeginPlot("##scope", ImVec2(ImGui::GetWindowContentRegionWidth(), 150))) {
+    if (ImPlot::BeginPlot("##scope", ImVec2(ImGui::GetWindowContentRegionMax().x - ImGui::GetWindowContentRegionMin().x, 150))) {
       ImPlot::SetupAxes(nullptr, nullptr, ImPlotAxisFlags_NoTickLabels, 0);
       ImPlot::SetupAxisLimits(ImAxis_X1, 0.0, (double)(ap.plotbuf_size-1), ImGuiCond_Always);
       ImPlot::SetupAxisLimits(ImAxis_Y1, -1.0, 1.0, ImGuiCond_Once);
